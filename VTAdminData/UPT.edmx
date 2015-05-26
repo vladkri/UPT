@@ -1,0 +1,900 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UptRTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="UptRTModelStoreContainer">
+          <EntitySet Name="Location" EntityType="UptRTModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Route" EntityType="UptRTModel.Store.Route" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RouteStop" EntityType="UptRTModel.Store.RouteStop" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RouteStopTmp" EntityType="UptRTModel.Store.RouteStopTmp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RouteTmp" EntityType="UptRTModel.Store.RouteTmp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RouteVariant" EntityType="UptRTModel.Store.RouteVariant" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Schedule" EntityType="UptRTModel.Store.Schedule" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="UptRTModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TransitService" EntityType="UptRTModel.Store.TransitService" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TransitSystem" EntityType="UptRTModel.Store.TransitSystem" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TripTemplate" EntityType="UptRTModel.Store.TripTemplate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TripTemplateStop" EntityType="UptRTModel.Store.TripTemplateStop" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Location_TransitSystem" Association="UptRTModel.Store.FK_Location_TransitSystem">
+            <End Role="TransitSystem" EntitySet="TransitSystem" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocationRouteStopTmp" Association="UptRTModel.Store.FK_LocationRouteStopTmp">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="RouteStopTmp" EntitySet="RouteStopTmp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Route_TransitService" Association="UptRTModel.Store.FK_Route_TransitService">
+            <End Role="TransitService" EntitySet="TransitService" />
+            <End Role="Route" EntitySet="Route" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteStop_Location" Association="UptRTModel.Store.FK_RouteStop_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="RouteStop" EntitySet="RouteStop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteStop_RouteVariant" Association="UptRTModel.Store.FK_RouteStop_RouteVariant">
+            <End Role="RouteVariant" EntitySet="RouteVariant" />
+            <End Role="RouteStop" EntitySet="RouteStop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteStopTmp_RouteTmp" Association="UptRTModel.Store.FK_RouteStopTmp_RouteTmp">
+            <End Role="RouteTmp" EntitySet="RouteTmp" />
+            <End Role="RouteStopTmp" EntitySet="RouteStopTmp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteVariant_Route" Association="UptRTModel.Store.FK_RouteVariant_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="RouteVariant" EntitySet="RouteVariant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_TransitServices" Association="UptRTModel.Store.FK_Schedule_TransitServices">
+            <End Role="TransitService" EntitySet="TransitService" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransitService_TransitSystem" Association="UptRTModel.Store.FK_TransitService_TransitSystem">
+            <End Role="TransitSystem" EntitySet="TransitSystem" />
+            <End Role="TransitService" EntitySet="TransitService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripTemplate_RouteVariant" Association="UptRTModel.Store.FK_TripTemplate_RouteVariant">
+            <End Role="RouteVariant" EntitySet="RouteVariant" />
+            <End Role="TripTemplate" EntitySet="TripTemplate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripTemplateStop_RouteStop" Association="UptRTModel.Store.FK_TripTemplateStop_RouteStop">
+            <End Role="RouteStop" EntitySet="RouteStop" />
+            <End Role="TripTemplateStop" EntitySet="TripTemplateStop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripTemplateStop_TripTemplate" Association="UptRTModel.Store.FK_TripTemplateStop_TripTemplate">
+            <End Role="TripTemplate" EntitySet="TripTemplate" />
+            <End Role="TripTemplateStop" EntitySet="TripTemplateStop" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Lon" Type="float" Nullable="false" />
+          <Property Name="Lat" Type="float" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="SystemId" Type="int" Nullable="false" />
+          <Property Name="Geo" Type="geography" />
+          <Property Name="RadMeters" Type="float" Nullable="false" />
+          <Property Name="LastUpdate" Type="datetime" Nullable="false" />
+          <Property Name="LocationType" Type="varchar" Nullable="false" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="RouteStop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="RouteVariantId" Type="int" Nullable="false" />
+          <Property Name="SecondsFromPrev" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RouteStopTmp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RouteId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+          <Property Name="Lon" Type="float" Nullable="false" />
+          <Property Name="Lat" Type="float" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="1000" />
+          <Property Name="Geo" Type="geography" />
+          <Property Name="MatchedLocationId" Type="int" />
+        </EntityType>
+        <EntityType Name="RouteTmp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="SessId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="SystemId" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="DeviceId" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RouteVariant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RouteId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="EffDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TransitService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SystemId" Type="int" Nullable="false" />
+          <Property Name="SystemType" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TransitSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TripTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RouteVariantId" Type="int" Nullable="false" />
+          <Property Name="WeekDays" Type="tinyint" Nullable="false" />
+          <Property Name="TripId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TripName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TripTemplateStop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TripTemplateId" Type="int" Nullable="false" />
+          <Property Name="RouteStopId" Type="int" Nullable="false" />
+          <Property Name="StopOrder" Type="int" Nullable="false" />
+          <Property Name="SecondsFromPrevious" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Location_TransitSystem">
+          <End Role="TransitSystem" Type="UptRTModel.Store.TransitSystem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="UptRTModel.Store.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocationRouteStopTmp">
+          <End Role="Location" Type="UptRTModel.Store.Location" Multiplicity="0..1" />
+          <End Role="RouteStopTmp" Type="UptRTModel.Store.RouteStopTmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStopTmp">
+              <PropertyRef Name="MatchedLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Route_TransitService">
+          <End Role="TransitService" Type="UptRTModel.Store.TransitService" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Route" Type="UptRTModel.Store.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteStop_Location">
+          <End Role="Location" Type="UptRTModel.Store.Location" Multiplicity="1" />
+          <End Role="RouteStop" Type="UptRTModel.Store.RouteStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStop">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteStop_RouteVariant">
+          <End Role="RouteVariant" Type="UptRTModel.Store.RouteVariant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RouteStop" Type="UptRTModel.Store.RouteStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteVariant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStop">
+              <PropertyRef Name="RouteVariantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteStopTmp_RouteTmp">
+          <End Role="RouteTmp" Type="UptRTModel.Store.RouteTmp" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RouteStopTmp" Type="UptRTModel.Store.RouteStopTmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteTmp">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStopTmp">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteVariant_Route">
+          <End Role="Route" Type="UptRTModel.Store.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RouteVariant" Type="UptRTModel.Store.RouteVariant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteVariant">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_TransitServices">
+          <End Role="TransitService" Type="UptRTModel.Store.TransitService" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedule" Type="UptRTModel.Store.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransitService_TransitSystem">
+          <End Role="TransitSystem" Type="UptRTModel.Store.TransitSystem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TransitService" Type="UptRTModel.Store.TransitService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransitService">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripTemplate_RouteVariant">
+          <End Role="RouteVariant" Type="UptRTModel.Store.RouteVariant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TripTemplate" Type="UptRTModel.Store.TripTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteVariant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripTemplate">
+              <PropertyRef Name="RouteVariantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripTemplateStop_RouteStop">
+          <End Role="RouteStop" Type="UptRTModel.Store.RouteStop" Multiplicity="1" />
+          <End Role="TripTemplateStop" Type="UptRTModel.Store.TripTemplateStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteStop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripTemplateStop">
+              <PropertyRef Name="RouteStopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripTemplateStop_TripTemplate">
+          <End Role="TripTemplate" Type="UptRTModel.Store.TripTemplate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TripTemplateStop" Type="UptRTModel.Store.TripTemplateStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TripTemplate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripTemplateStop">
+              <PropertyRef Name="TripTemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UptRTModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UptRTEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Locations" EntityType="UptRTModel.Location" />
+          <EntitySet Name="Routes" EntityType="UptRTModel.Route" />
+          <EntitySet Name="RouteStops" EntityType="UptRTModel.RouteStop" />
+          <EntitySet Name="RouteStopTmps" EntityType="UptRTModel.RouteStopTmp" />
+          <EntitySet Name="RouteTmps" EntityType="UptRTModel.RouteTmp" />
+          <EntitySet Name="RouteVariants" EntityType="UptRTModel.RouteVariant" />
+          <EntitySet Name="Schedules" EntityType="UptRTModel.Schedule" />
+          <EntitySet Name="sysdiagrams" EntityType="UptRTModel.sysdiagram" />
+          <EntitySet Name="TransitServices" EntityType="UptRTModel.TransitService" />
+          <EntitySet Name="TransitSystems" EntityType="UptRTModel.TransitSystem" />
+          <EntitySet Name="TripTemplates" EntityType="UptRTModel.TripTemplate" />
+          <EntitySet Name="TripTemplateStops" EntityType="UptRTModel.TripTemplateStop" />
+          <AssociationSet Name="FK_Location_TransitSystem" Association="UptRTModel.FK_Location_TransitSystem">
+            <End Role="TransitSystem" EntitySet="TransitSystems" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocationRouteStopTmp" Association="UptRTModel.FK_LocationRouteStopTmp">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="RouteStopTmp" EntitySet="RouteStopTmps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteStop_Location" Association="UptRTModel.FK_RouteStop_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="RouteStop" EntitySet="RouteStops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Route_TransitService" Association="UptRTModel.FK_Route_TransitService">
+            <End Role="TransitService" EntitySet="TransitServices" />
+            <End Role="Route" EntitySet="Routes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteVariant_Route" Association="UptRTModel.FK_RouteVariant_Route">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="RouteVariant" EntitySet="RouteVariants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteStop_RouteVariant" Association="UptRTModel.FK_RouteStop_RouteVariant">
+            <End Role="RouteVariant" EntitySet="RouteVariants" />
+            <End Role="RouteStop" EntitySet="RouteStops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripTemplateStop_RouteStop" Association="UptRTModel.FK_TripTemplateStop_RouteStop">
+            <End Role="RouteStop" EntitySet="RouteStops" />
+            <End Role="TripTemplateStop" EntitySet="TripTemplateStops" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteStopTmp_RouteTmp" Association="UptRTModel.FK_RouteStopTmp_RouteTmp">
+            <End Role="RouteTmp" EntitySet="RouteTmps" />
+            <End Role="RouteStopTmp" EntitySet="RouteStopTmps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripTemplate_RouteVariant" Association="UptRTModel.FK_TripTemplate_RouteVariant">
+            <End Role="RouteVariant" EntitySet="RouteVariants" />
+            <End Role="TripTemplate" EntitySet="TripTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_TransitServices" Association="UptRTModel.FK_Schedule_TransitServices">
+            <End Role="TransitService" EntitySet="TransitServices" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransitService_TransitSystem" Association="UptRTModel.FK_TransitService_TransitSystem">
+            <End Role="TransitSystem" EntitySet="TransitSystems" />
+            <End Role="TransitService" EntitySet="TransitServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripTemplateStop_TripTemplate" Association="UptRTModel.FK_TripTemplateStop_TripTemplate">
+            <End Role="TripTemplate" EntitySet="TripTemplates" />
+            <End Role="TripTemplateStop" EntitySet="TripTemplateStops" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Lon" Type="Double" Nullable="false" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="SystemId" Type="Int32" Nullable="false" />
+          <Property Name="Geo" Type="Geography" />
+          <Property Name="RadMeters" Type="Double" Nullable="false" />
+          <Property Name="LastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LocationType" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TransitSystem" Relationship="UptRTModel.FK_Location_TransitSystem" FromRole="Location" ToRole="TransitSystem" />
+          <NavigationProperty Name="RouteStopTmps" Relationship="UptRTModel.FK_LocationRouteStopTmp" FromRole="Location" ToRole="RouteStopTmp" />
+          <NavigationProperty Name="RouteStops" Relationship="UptRTModel.FK_RouteStop_Location" FromRole="Location" ToRole="RouteStop" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TransitService" Relationship="UptRTModel.FK_Route_TransitService" FromRole="Route" ToRole="TransitService" />
+          <NavigationProperty Name="RouteVariants" Relationship="UptRTModel.FK_RouteVariant_Route" FromRole="Route" ToRole="RouteVariant" />
+        </EntityType>
+        <EntityType Name="RouteStop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="RouteVariantId" Type="Int32" Nullable="false" />
+          <Property Name="SecondsFromPrev" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="UptRTModel.FK_RouteStop_Location" FromRole="RouteStop" ToRole="Location" />
+          <NavigationProperty Name="RouteVariant" Relationship="UptRTModel.FK_RouteStop_RouteVariant" FromRole="RouteStop" ToRole="RouteVariant" />
+          <NavigationProperty Name="TripTemplateStops" Relationship="UptRTModel.FK_TripTemplateStop_RouteStop" FromRole="RouteStop" ToRole="TripTemplateStop" />
+        </EntityType>
+        <EntityType Name="RouteStopTmp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Lon" Type="Double" Nullable="false" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Geo" Type="Geography" />
+          <Property Name="MatchedLocationId" Type="Int32" />
+          <NavigationProperty Name="Location" Relationship="UptRTModel.FK_LocationRouteStopTmp" FromRole="RouteStopTmp" ToRole="Location" />
+          <NavigationProperty Name="RouteTmp" Relationship="UptRTModel.FK_RouteStopTmp_RouteTmp" FromRole="RouteStopTmp" ToRole="RouteTmp" />
+        </EntityType>
+        <EntityType Name="RouteTmp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="SessId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="SystemId" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="DeviceId" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="RouteStopTmps" Relationship="UptRTModel.FK_RouteStopTmp_RouteTmp" FromRole="RouteTmp" ToRole="RouteStopTmp" />
+        </EntityType>
+        <EntityType Name="RouteVariant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Route" Relationship="UptRTModel.FK_RouteVariant_Route" FromRole="RouteVariant" ToRole="Route" />
+          <NavigationProperty Name="RouteStops" Relationship="UptRTModel.FK_RouteStop_RouteVariant" FromRole="RouteVariant" ToRole="RouteStop" />
+          <NavigationProperty Name="TripTemplates" Relationship="UptRTModel.FK_TripTemplate_RouteVariant" FromRole="RouteVariant" ToRole="TripTemplate" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="EffDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TransitService" Relationship="UptRTModel.FK_Schedule_TransitServices" FromRole="Schedule" ToRole="TransitService" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TransitService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SystemId" Type="Int32" Nullable="false" />
+          <Property Name="SystemType" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Routes" Relationship="UptRTModel.FK_Route_TransitService" FromRole="TransitService" ToRole="Route" />
+          <NavigationProperty Name="Schedules" Relationship="UptRTModel.FK_Schedule_TransitServices" FromRole="TransitService" ToRole="Schedule" />
+          <NavigationProperty Name="TransitSystem" Relationship="UptRTModel.FK_TransitService_TransitSystem" FromRole="TransitService" ToRole="TransitSystem" />
+        </EntityType>
+        <EntityType Name="TransitSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Locations" Relationship="UptRTModel.FK_Location_TransitSystem" FromRole="TransitSystem" ToRole="Location" />
+          <NavigationProperty Name="TransitServices" Relationship="UptRTModel.FK_TransitService_TransitSystem" FromRole="TransitSystem" ToRole="TransitService" />
+        </EntityType>
+        <EntityType Name="TripTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RouteVariantId" Type="Int32" Nullable="false" />
+          <Property Name="WeekDays" Type="Byte" Nullable="false" />
+          <Property Name="TripId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TripName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="RouteVariant" Relationship="UptRTModel.FK_TripTemplate_RouteVariant" FromRole="TripTemplate" ToRole="RouteVariant" />
+          <NavigationProperty Name="TripTemplateStops" Relationship="UptRTModel.FK_TripTemplateStop_TripTemplate" FromRole="TripTemplate" ToRole="TripTemplateStop" />
+        </EntityType>
+        <EntityType Name="TripTemplateStop">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="TripTemplateId" Type="Int32" Nullable="false" />
+          <Property Name="RouteStopId" Type="Int32" Nullable="false" />
+          <Property Name="StopOrder" Type="Int32" Nullable="false" />
+          <Property Name="SecondsFromPrevious" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RouteStop" Relationship="UptRTModel.FK_TripTemplateStop_RouteStop" FromRole="TripTemplateStop" ToRole="RouteStop" />
+          <NavigationProperty Name="TripTemplate" Relationship="UptRTModel.FK_TripTemplateStop_TripTemplate" FromRole="TripTemplateStop" ToRole="TripTemplate" />
+        </EntityType>
+        <Association Name="FK_Location_TransitSystem">
+          <End Role="TransitSystem" Type="UptRTModel.TransitSystem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Location" Type="UptRTModel.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocationRouteStopTmp">
+          <End Role="Location" Type="UptRTModel.Location" Multiplicity="0..1" />
+          <End Role="RouteStopTmp" Type="UptRTModel.RouteStopTmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStopTmp">
+              <PropertyRef Name="MatchedLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteStop_Location">
+          <End Role="Location" Type="UptRTModel.Location" Multiplicity="1" />
+          <End Role="RouteStop" Type="UptRTModel.RouteStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStop">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Route_TransitService">
+          <End Role="TransitService" Type="UptRTModel.TransitService" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Route" Type="UptRTModel.Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteVariant_Route">
+          <End Role="Route" Type="UptRTModel.Route" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RouteVariant" Type="UptRTModel.RouteVariant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteVariant">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteStop_RouteVariant">
+          <End Role="RouteVariant" Type="UptRTModel.RouteVariant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RouteStop" Type="UptRTModel.RouteStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteVariant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStop">
+              <PropertyRef Name="RouteVariantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripTemplateStop_RouteStop">
+          <End Role="RouteStop" Type="UptRTModel.RouteStop" Multiplicity="1" />
+          <End Role="TripTemplateStop" Type="UptRTModel.TripTemplateStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteStop">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripTemplateStop">
+              <PropertyRef Name="RouteStopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteStopTmp_RouteTmp">
+          <End Role="RouteTmp" Type="UptRTModel.RouteTmp" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RouteStopTmp" Type="UptRTModel.RouteStopTmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteTmp">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouteStopTmp">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripTemplate_RouteVariant">
+          <End Role="RouteVariant" Type="UptRTModel.RouteVariant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TripTemplate" Type="UptRTModel.TripTemplate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RouteVariant">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripTemplate">
+              <PropertyRef Name="RouteVariantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_TransitServices">
+          <End Role="TransitService" Type="UptRTModel.TransitService" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Schedule" Type="UptRTModel.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransitService_TransitSystem">
+          <End Role="TransitSystem" Type="UptRTModel.TransitSystem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TransitService" Type="UptRTModel.TransitService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransitSystem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransitService">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripTemplateStop_TripTemplate">
+          <End Role="TripTemplate" Type="UptRTModel.TripTemplate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TripTemplateStop" Type="UptRTModel.TripTemplateStop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TripTemplate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripTemplateStop">
+              <PropertyRef Name="TripTemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UptRTModelStoreContainer" CdmEntityContainer="UptRTEntities">
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="UptRTModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="Geo" ColumnName="Geo" />
+                <ScalarProperty Name="RadMeters" ColumnName="RadMeters" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="LocationType" ColumnName="LocationType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="UptRTModel.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteStops">
+            <EntityTypeMapping TypeName="UptRTModel.RouteStop">
+              <MappingFragment StoreEntitySet="RouteStop">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="RouteVariantId" ColumnName="RouteVariantId" />
+                <ScalarProperty Name="SecondsFromPrev" ColumnName="SecondsFromPrev" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteStopTmps">
+            <EntityTypeMapping TypeName="UptRTModel.RouteStopTmp">
+              <MappingFragment StoreEntitySet="RouteStopTmp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Geo" ColumnName="Geo" />
+                <ScalarProperty Name="MatchedLocationId" ColumnName="MatchedLocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteTmps">
+            <EntityTypeMapping TypeName="UptRTModel.RouteTmp">
+              <MappingFragment StoreEntitySet="RouteTmp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SessId" ColumnName="SessId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteVariants">
+            <EntityTypeMapping TypeName="UptRTModel.RouteVariant">
+              <MappingFragment StoreEntitySet="RouteVariant">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="UptRTModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="EffDate" ColumnName="EffDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UptRTModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransitServices">
+            <EntityTypeMapping TypeName="UptRTModel.TransitService">
+              <MappingFragment StoreEntitySet="TransitService">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="SystemType" ColumnName="SystemType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransitSystems">
+            <EntityTypeMapping TypeName="UptRTModel.TransitSystem">
+              <MappingFragment StoreEntitySet="TransitSystem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripTemplates">
+            <EntityTypeMapping TypeName="UptRTModel.TripTemplate">
+              <MappingFragment StoreEntitySet="TripTemplate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RouteVariantId" ColumnName="RouteVariantId" />
+                <ScalarProperty Name="WeekDays" ColumnName="WeekDays" />
+                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="TripName" ColumnName="TripName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripTemplateStops">
+            <EntityTypeMapping TypeName="UptRTModel.TripTemplateStop">
+              <MappingFragment StoreEntitySet="TripTemplateStop">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TripTemplateId" ColumnName="TripTemplateId" />
+                <ScalarProperty Name="RouteStopId" ColumnName="RouteStopId" />
+                <ScalarProperty Name="StopOrder" ColumnName="StopOrder" />
+                <ScalarProperty Name="SecondsFromPrevious" ColumnName="SecondsFromPrevious" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

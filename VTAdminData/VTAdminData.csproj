@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{947972A2-8308-478A-96E1-CD95EB171FB5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VTAdminData</RootNamespace>
+    <AssemblyName>VTAdminData</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Location.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Route.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RouteStop.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RouteStopTmp.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RouteTmp.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RouteVariant.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransitService.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransitSystem.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripTemplate.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripTemplateStop.cs">
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UPT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UPT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UPT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UPT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UPT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UPT.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="UPT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UPT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="UPT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UPT.edmx</DependentUpon>
+      <LastGenOutput>UPT.Context.cs</LastGenOutput>
+    </None>
+    <None Include="UPT.edmx.diagram">
+      <DependentUpon>UPT.edmx</DependentUpon>
+    </None>
+    <None Include="UPT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UPT.edmx</DependentUpon>
+      <LastGenOutput>UPT.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VTDataContracts\VTDataContracts.csproj">
+      <Project>{3bc0252a-b9ea-40f5-bab2-3ba04b33e1e5}</Project>
+      <Name>VTDataContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
